@@ -25,22 +25,22 @@ sortedRaw = sortRaw(rawText)
 # Train 1
 sortedObject = sortObject(sortedRaw[3])
 type, platform = sortedObject[3].split('":"')
-arrtype, arrive = sortedObject[6].split('":"')
-leavtype, leave = sortedObject[7].split('":"')
+arrtype, arrive = sortedObject[7].split('":"')
+leavtype, leave = sortedObject[6].split('":"')
 desttype, dest = sortedObject[10].split('":"')
 
 # Train 2
 sortedObject1 = sortObject(sortedRaw[5])
 type1, platform1 = sortedObject1[3].split('":"')
-arrtype1, arrive1 = sortedObject1[6].split('":"')
-leavtype1, leave1 = sortedObject1[7].split('":"')
+arrtype1, arrive1 = sortedObject1[7].split('":"')
+leavtype1, leave1 = sortedObject1[6].split('":"')
 desttype1, dest1 = sortedObject1[10].split('":"')
 
 # Train 3
 sortedObject2 = sortObject(sortedRaw[7])
 type1, platform2 = sortedObject2[3].split('":"')
-arrtype1, arrive2 = sortedObject2[6].split('":"')
-leavtype1, leave2 = sortedObject2[7].split('":"')
+arrtype1, arrive2 = sortedObject2[7].split('":"')
+leavtype1, leave2 = sortedObject2[6].split('":"')
 desttype1, dest2 = sortedObject2[10].split('":"')
 
 print(f"""
