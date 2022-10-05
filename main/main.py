@@ -1,14 +1,18 @@
-from email import message
 import requests
 
-response = requests.get("https://transportapi.com/v3/uk/train/station/adv///timetable.json?app_id=b1f965c3&app_key=7d35c36842fcda2da625d900b2c53326&train_status=passenger")
-
+response = requests.get("https://transportapi.com/v3/uk/train/station/adv///timetable.json?app_id=41f6042a&app_key=229f789dd8d9c6d488333521d8960127&train_status=passenger")
 rawText = response.text
 
-list = rawText.split("{")
+def sortRaw(message):
+    list = message.split("{")
+    return list
 
-test = list[3]
+def sortObject(message):
+    list = message.split(",")
+    return list
 
-information = test.split(",")
+sortedRaw = sortRaw(rawText)
+sortedObject = sortObject(sortedRaw[3])
 
-print(information[6])
+print(sortedObject[7])
+print(sortedObject[6])
