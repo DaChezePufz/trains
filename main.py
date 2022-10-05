@@ -30,10 +30,13 @@ class MakeApiCall:
         # self.get_data(api)
 
         parameters = {
-            "username": "kedark"
+#            "username": ""
+            
         }
         self.get_user_data(api, parameters)
 
+if __name__ == "__main__":
+    __init__()
 
 station_code = "grt"
 date = ""
