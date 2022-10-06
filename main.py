@@ -11,6 +11,24 @@ else:
 	print("Station is: "+station)
 	
 
+def grtPlatWorkings(destinationWPunc):
+    #print(destinationWPunc)
+    destination = removePunc(destinationWPunc)
+    #print(destination)
+    if station == "grt":
+        if destination == "London Waterloo" or destination == "Basingstoke":
+            platform = "1"
+            #print("set plat 1")
+
+        elif destination == "Yeovil Junction" or destination == "Frome" or destination == "Salisbury":
+            platform = "2"
+            #print("set plat 2")
+
+        else:
+            platform = "N/A"
+            #print("set plat n/a")
+        return platform
+
 url = "https://transportapi.com/v3/uk/train/station/"+station+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
 
 #print(url)
@@ -40,26 +58,38 @@ def sortObject(message):
 
 sortedRaw = sortRaw(rawText)
 
+#print(sortedRaw)
+
 # Train 1
 sortedObject = sortObject(sortedRaw[3])
-type, platform = sortedObject[3].split('":"')
-arrtype, arrive = sortedObject[7].split('":"')
+try: desttype, dest = sortedObject[10].split('":"')
+except: dest = "N/A"
+try: type, platform = sortedObject[3].split('":"')
+except: platform = grtPlatWorkings(dest)
+try: arrtype, arrive = sortedObject[7].split('":"')
+except: arrive = "N/A"
 leavtype, leave = sortedObject[6].split('":"')
-desttype, dest = sortedObject[10].split('":"')
+
 
 # Train 2
 sortedObject1 = sortObject(sortedRaw[5])
-type1, platform1 = sortedObject1[3].split('":"')
-arrtype1, arrive1 = sortedObject1[7].split('":"')
-leavtype1, leave1 = sortedObject1[6].split('":"')
 desttype1, dest1 = sortedObject1[10].split('":"')
+try: type1, platform1 = sortedObject1[3].split('":"')
+except: platform1 = grtPlatWorkings(dest1)
+try: arrtype1, arrive1 = sortedObject1[7].split('":"')
+except: arrive1 = "N/A"
+leavtype1, leave1 = sortedObject1[6].split('":"')
+
 
 # Train 3
 sortedObject2 = sortObject(sortedRaw[7])
-type1, platform2 = sortedObject2[3].split('":"')
-arrtype1, arrive2 = sortedObject2[7].split('":"')
-leavtype1, leave2 = sortedObject2[6].split('":"')
-desttype1, dest2 = sortedObject2[10].split('":"')
+desttype2, dest2 = sortedObject2[10].split('":"')
+try: type2, platform2 = sortedObject2[3].split('":"')
+except: platform2 = grtPlatWorkings(dest2)
+try: arrtype2, arrive2 = sortedObject2[7].split('":"')
+except: arrive2 = "N/A"
+leavtype2, leave2 = sortedObject2[6].split('":"')
+
 
 print(f"""
 
