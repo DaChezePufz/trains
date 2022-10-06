@@ -1,5 +1,4 @@
 ## imports
-from multiprocessing.resource_sharer import stop
 import requests
 import apiKeys
 import os
