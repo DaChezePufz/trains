@@ -1,16 +1,31 @@
+## imports
+from multiprocessing.resource_sharer import stop
 import requests
 import apiKeys
 import os
 
+## clearing the shell output
 os.system("cls")
+
+
+## checking to see that the user has api credentails present
+if apiKeys.apiKey == "":
+    print("Please enter an API Key in the \'apiKeys.py\' file.")
+    exit()
+if apiKeys.appID == "":
+    print("Please enter an app ID in the \'apiKeys.py\' file.")
+    exit()
+
+## checking if default station preset in apiKeys.py, if not requesting one from user
 if apiKeys.station == "":
 	station = input("Enter station code:  ")
-	
 else: 
 	station = apiKeys.station
 	print("Station is: "+station)
 	
 
+
+## fixing certain stations that don't have platforms assined to train manually
 def grtPlatWorkings(destinationWPunc):
     #print(destinationWPunc)
     destination = removePunc(destinationWPunc)
@@ -29,36 +44,28 @@ def grtPlatWorkings(destinationWPunc):
             #print("set plat n/a")
         return platform
 
+## making the url for the api call
 url = "https://transportapi.com/v3/uk/train/station/"+station+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
 
-#print(url)
-
+## getting the data from the api
 print("Getting data from web...")
 response = requests.get(url)
 rawText = response.text
 
-#print(response.status_code)
-
+## some formatting
 def removePunc(message):
     finalised = []
-
     for char in message:
         if(char != '"'):
             finalised.append(char)
-
     return "".join(finalised)
-
 def sortRaw(message):
     list = message.split("{")
     return list
-
 def sortObject(message):
     list = message.split(",")
     return list
-
 sortedRaw = sortRaw(rawText)
-
-#print(sortedRaw)
 
 # Train 1
 sortedObject = sortObject(sortedRaw[3])
