@@ -1,7 +1,25 @@
 import requests
+import apiKeys
+import os
 
-response = requests.get("https://transportapi.com/v3/uk/train/station/adv///timetable.json?app_id=30f759a5&app_key=855270cacc33dfe9e04b2de90ee5835f&train_status=passenger")
+os.system("cls")
+if apiKeys.station == "":
+	station = input("Enter station code:  ")
+	
+else: 
+	station = apiKeys.station
+	print("Station is: "+station)
+	
+
+url = "https://transportapi.com/v3/uk/train/station/"+station+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
+
+#print(url)
+
+print("Getting data from web...")
+response = requests.get(url)
 rawText = response.text
+
+#print(response.status_code)
 
 def removePunc(message):
     finalised = []
