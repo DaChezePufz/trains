@@ -8,6 +8,8 @@ import csv
 ## clearing the shell output
 os.system("cls")
 
+
+## opening csv file and placing values in dictionary
 with open('stationsForm.csv', mode='r') as infile:
     reader = csv.reader(infile)
     with open('stations_new.csv', mode='w') as outfile:
@@ -30,8 +32,11 @@ else:
 	station = apiKeys.station
 	#print("Station is: "+station)
 
+## making 2nd station code var with uppercase
 stationUpper = station.upper()
 
+
+## searching for and displaying the full station code
 for stationName, stationCode in stationsCode.items():
     if stationUpper == stationCode:
         print(f"The station is: {stationName}")
