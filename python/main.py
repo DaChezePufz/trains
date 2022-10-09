@@ -3,17 +3,13 @@ import requests     # importing 'requests'
 import apiKeys      # importing 'apiKeys.py'    [LOCAL]
 import os           # importing 'os'
 import grt          # importing 'grt.py'        [LOCAL]
-import csv          # importing 'csv'
+import stations     # importing 'stations.py'   [LOCAL]
 
 ## clearing the shell output
 os.system("cls")
 
-## opening csv file and placing values in dictionary
-with open('stationsForm.csv', mode='r') as infile:
-    reader = csv.reader(infile)
-    with open('stations_new.csv', mode='w') as outfile:
-        writer = csv.writer(outfile)
-        stationsCode = {rows[0]:rows[1] for rows in reader}
+## defining the database as a local variable
+stationsDB = stations.stationsInDict
 
 ## checking to see that the user has api credentails present
 if apiKeys.apiKey == "":
@@ -33,7 +29,7 @@ else:
 stationUpper = station.upper()
 
 ## searching for and displaying the full station code
-for stationName, stationCode in stationsCode.items():
+for stationName, stationCode in stationsDB.items():
     if stationUpper == stationCode:
         print(f"The station is: {stationName}")
 
@@ -107,3 +103,6 @@ Leaving station @ {removePunc(leave)}
 Destination: {removePunc(dest)}
         """)
 except: print("")
+
+
+os.system("pause")
