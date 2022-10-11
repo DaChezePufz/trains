@@ -1,12 +1,36 @@
 ## imports
 import requests     # importing 'requests'
-import apiKeys      # importing 'apiKeys.py'    [LOCAL]
+import apiKeys      # importing 'apiKeys.py'    [LOCAL] [TEMP]
 import os           # importing 'os'
 import grt          # importing 'grt.py'        [LOCAL]
 import stations     # importing 'stations.py'   [LOCAL]
+import datetime     # importing 'datettime'
+import afterDateNds # importing 'afterDateNds   [LOCAL]
 
 ## clearing the shell output
 os.system("cls")
+
+## converting the foreighn dictionary to local
+prefixDateList = afterDateNds.afterDatePrefix
+
+## getting the date and time at which the query was placed
+now = datetime.datetime.now()
+
+## getting all the time values as their own seperate variables
+currentWeekDay = now.strftime("%A")
+currentMonth = now.strftime("%B")
+currentYear = now.strftime("%Y")
+currentMonthDay = now.strftime("%d")
+
+for dayOfMonth, dayOfMonthSuffix in prefixDateList.items():
+    if dayOfMonth == currentMonthDay:
+        monthDayPrefix = dayOfMonthSuffix
+
+currentHour = now.strftime("%H")
+currentMinute = now.strftime("%M")
+currentSecond = now.strftime("%S")
+
+print(currentWeekDay,currentMonthDay+monthDayPrefix,currentMonth,currentYear+" - "+currentHour+":"+currentMinute+":"+currentSecond)
 
 ## defining the database as a local variable
 stationsDB = stations.stationsInDict
