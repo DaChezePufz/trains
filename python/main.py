@@ -1,4 +1,7 @@
 ## imports
+from email import message
+from tkinter import N
+from turtle import back
 import requests     # importing 'requests'
 import apiKeys      # importing 'apiKeys.py'    [LOCAL] [TEMP]
 import os           # importing 'os'
@@ -6,6 +9,7 @@ import grt          # importing 'grt.py'        [LOCAL]
 import stations     # importing 'stations.py'   [LOCAL]
 import datetime     # importing 'datettime'
 import afterDateNds # importing 'afterDateNds   [LOCAL]
+import math         # importing 'math'
 
 ## clearing the shell output
 os.system("cls")
@@ -34,6 +38,9 @@ print(currentWeekDay,currentMonthDay+monthDayPrefix,currentMonth,currentYear+" -
 
 ## defining the database as a local variable
 stationsDB = stations.stationsInDict
+
+platform = 0
+numSpacesSixthRow = 0
 
 ## checking to see that the user has api credentails present
 if apiKeys.apiKey == "":
@@ -150,32 +157,58 @@ Destination: {removePunc(dest)}
     os.system("pause")
 
 
+frontSpaces = ""
+backSpaces = ""
+
 def displayBoardsDisplay():
     print("")
-    # 20 wide, 1 space either side for padding then box characters
+    # 40 wide, 1 space either side for padding then box characters
     if numOfTrainsToDisplay == 1:
         lengthStationName = len(stationChosen)
-        numOfSpacesToPrint = 20 - lengthStationName
-        if numOfSpacesToPrint >= 1:
-            printSpaces = " " * numOfSpacesToPrint
+        numOfSpacesToPrint = 40 - lengthStationName
 
-            stationNameToDisplay = stationChosen+printSpaces
+        if numOfSpacesToPrint >= 1:
+            
+            if (numOfSpacesToPrint % 2) == 0:       #even
+                halfNumSpaces = numOfSpacesToPrint / 2
+                frontNumSpaces = halfNumSpaces
+                backNumSpaces = halfNumSpaces
+                print()
+                frontSpaces = " " * int(frontNumSpaces)
+                backSpaces = " " * int(backNumSpaces)
+
+            else:
+                numOfSpacesToPrint = numOfSpacesToPrint + 1
+                halfNumSpaces = numOfSpacesToPrint / 2
+                frontNumSpaces = halfNumSpaces
+                backNumSpaces = halfNumSpaces - 1
+                frontSpaces = " " * int(frontNumSpaces)
+                backSpaces = " " * int(backNumSpaces)
+
+            stationNameToDisplay = frontSpaces+stationChosen+backSpaces
         else:
-            cutStationName = stationChosen[:20]
+            cutStationName = stationChosen[:40]
             stationNameToDisplay = cutStationName
         try: platformWithoutPunc = removePunc(platform)
-        except: print("")
-        if int(platformWithoutPunc) >= 10:
+        except: platformWithoutPunc = platform
+        if int(platformWithoutPunc) >= 40:
             spaceIfPlat2Chars = ""
         else:
             spaceIfPlat2Chars = " "
 
- 
+        lengthDestination = len(removePunc(dest))
+
+        numSpacesSixthRow = 40 - (lengthDestination + 5 + 2)
+        numSpacesSixthRowPrint = " " * int(numSpacesSixthRow)
+
         print(f"""
-┌──────────────────────┐
+┌──────────────────────────────────────────┐
 │ {stationNameToDisplay} │
-│                      │
-│              {spaceIfPlat2Chars}Plat {removePunc(platform)} │
+│                                          │
+│                                  {spaceIfPlat2Chars}Plat {removePunc(platform)} │
+│                                          │
+│ {removePunc(dest)} {numSpacesSixthRowPrint} {removePunc(leave)} │
+│
 
 
         """)
