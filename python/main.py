@@ -56,6 +56,7 @@ stationUpper = station.upper()
 for stationName, stationCode in stationsDB.items():
     if stationUpper == stationCode:
         print(f"The station is: {stationName}")
+        stationChosen = stationName
 
 ## fixing certain stations that don't have platforms assined to train manually
 def grtPlatWorkings(destinationWPunc):
@@ -82,21 +83,35 @@ rawText = response.text
 ## some formatting and json parsing
 def removePunc(message):
     finalised = []
+
     for char in message:
         if(char != '"'):
             finalised.append(char)
     return "".join(finalised)
+
 def sortRaw(message):
     list = message.split("{")
     return list
+
 def sortObject(message):
     list = message.split(",")
     return list
 
 sortedRaw = sortRaw(rawText)
 
+print("""
+            Modes:
+    
+        (1)  Depature Boards
+        (2)  Pure Comand Line
+""")
+
+displayMode = int(input("Please enter the mode you would like:  "))
+
+
+
 ## getting the user to specify how many trains they'd like to see
-numOfTrainsToDisplay = int(input("Please enter the number of trains you would like displayed:  "))
+numOfTrainsToDisplay = int(input("Please enter the number of trains you would like displayed (1, 2 or 3):  "))
 
 ## the train locations in sortedRaw 
 trainDictValue = [3,5,7,9,11]
@@ -118,6 +133,11 @@ try:
         try: leavtype, leave = sortedObject[6].split('":"')
         except: leave = "N/A"
 
+except: print("")        
+        
+
+def commandLineDisplay():
+    try:
         print(f"""
 
 Train {i}:
@@ -126,7 +146,47 @@ Arriving at station @ {removePunc(arrive)}
 Leaving station @ {removePunc(leave)}
 Destination: {removePunc(dest)}
         """)
-except: print("")
+    except: print("")
+    os.system("pause")
 
 
-os.system("pause")
+def displayBoardsDisplay():
+    print("")
+    # 20 wide, 1 space either side for padding then box characters
+    if numOfTrainsToDisplay == 1:
+        lengthStationName = len(stationChosen)
+        numOfSpacesToPrint = 20 - lengthStationName
+        if numOfSpacesToPrint >= 1:
+            printSpaces = " " * numOfSpacesToPrint
+
+            stationNameToDisplay = stationChosen+printSpaces
+        else:
+            cutStationName = stationChosen[:20]
+            stationNameToDisplay = cutStationName
+        try: platformWithoutPunc = removePunc(platform)
+        except: print("")
+        if int(platformWithoutPunc) >= 10:
+            spaceIfPlat2Chars = ""
+        else:
+            spaceIfPlat2Chars = " "
+
+ 
+        print(f"""
+┌──────────────────────┐
+│ {stationNameToDisplay} │
+│                      │
+│              {spaceIfPlat2Chars}Plat {removePunc(platform)} │
+
+
+        """)
+
+
+if displayMode == 2:
+    commandLineDisplay()
+
+elif displayMode == 1:
+    displayBoardsDisplay()
+
+
+##
+## ┌ ┐ └ ┘ ├ ┤ ┬ ─ │ ┴ ┼ ╱ ╲
