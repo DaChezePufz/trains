@@ -142,3 +142,8 @@ test2.py
 stations_new.csv
 stations.csv
 stationsForm copy.csv
+
+/python/depreciated
+python/stationsForm.csv
+python/stationsForm.csv
+*.csv
