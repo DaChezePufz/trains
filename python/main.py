@@ -1,7 +1,4 @@
 ## imports
-from email import message
-from tkinter import N
-from turtle import back
 import requests     # importing 'requests'
 import apiKeys      # importing 'apiKeys.py'    [LOCAL] [TEMP]
 import os           # importing 'os'
@@ -78,7 +75,7 @@ def grtPlatWorkings(destinationWPunc):
         return platform
 
 ## making the url for the api call
-url1 = "https://transportapi.com/v3/uk/train/station/"+station+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
+url1 = "https://transportapi.com/v3/uk/train/station/"+station.lower()+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
 
 ## defining response for for the request statment, otherwise errors
 response = ""
@@ -208,8 +205,26 @@ def displayBoardsDisplay():
 │                                  {spaceIfPlat2Chars}Plat {removePunc(platform)} │
 │                                          │
 │ {removePunc(dest)} {numSpacesSixthRowPrint} {removePunc(leave)} │
-│
-
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+│                                          │
+└──────────────────────────────────────────┘
 
         """)
 
