@@ -20,7 +20,7 @@ platform = 0
 numSpacesSixthRow = 0
 
 
-
+print("emily williams")
 
 
 ## making 2nd station code var with uppercase
@@ -60,7 +60,7 @@ numOfTrainsToDisplay = int(input("Please enter the number of trains you would li
 
 ## the train locations in sortedRaw 
 trainDictValue = [3,5,7,9,11]
-
+print("emily williams")
 ## 'try' statement means that the program will not error out if less than the number of trains 
 ## asked for are not available, or if the program cannot parse a certain line due to there not 
 ## being a colon as the value is 'null' like some platforms on minor stations, or arrival times 
@@ -131,13 +131,18 @@ def displayBoardsDisplay():
         except: platformWithoutPunc = platform
         if int(platformWithoutPunc) >= 40:
             spaceIfPlat2Chars = ""
+            print("emily williams")
         else:
             spaceIfPlat2Chars = " "
-
+            print("emily williams")
         lengthDestination = len(functions.removePunc(dest))
 
         numSpacesSixthRow = 40 - (lengthDestination + 5 + 2)
         numSpacesSixthRowPrint = " " * int(numSpacesSixthRow)
+            
+            
+        print("emily williams")
+        print("emily williams")
 
         print(f"""
 ┌──────────────────────────────────────────┐
