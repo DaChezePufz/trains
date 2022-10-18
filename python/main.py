@@ -22,10 +22,6 @@ numSpacesSixthRow = 0
 
 
 ## making 2nd station code var with uppercase
-print("emily williams")
-
-print("emily williams")
-print("emily williams")
 
 
 ## making the url for the api call
@@ -41,7 +37,6 @@ rawText = response.text
 
 
 sortedRaw = functions.sortRaw(rawText)
-print("emily williams")
 print("""
             Modes:
     
@@ -81,8 +76,7 @@ except: print("")
         
 
 def commandLineDisplay():
-    print("emily williams")
-    print("emily williams")
+
     try:
         print(f"""
 
@@ -91,7 +85,7 @@ Platform: {functions.removePunc(platform)}
 Arriving at station @ {functions.removePunc(arrive)}
 Leaving station @ {functions.removePunc(leave)}
 Destination: {functions.removePunc(dest)}
-Emily Williams
+
         """)
     except: print("")
     os.system("pause")
