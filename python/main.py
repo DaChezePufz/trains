@@ -41,7 +41,6 @@ print("""
             Modes:
     
         (1)  Depature Boards
-        (1.5) emily williams
         (2)  Pure Comand Line
 """)
 
