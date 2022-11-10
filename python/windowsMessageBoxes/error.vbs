@@ -1,0 +1,1 @@
+x=msgbox ("Error has occoured",16, "Train Info")
