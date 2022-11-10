@@ -6,47 +6,75 @@ import grt          # importing 'grt.py'        [LOCAL]
 import stations     # importing 'stations.py'   [LOCAL]
 import datetime     # importing 'datettime'
 import math         # importing 'math'
-import sys
-import datetime
-import os.path
-from os import mkdir
+import sys          # importing 'sys'
+import datetime     # importing 'datetime'
+import os.path      # importing 'os.path'
+from os import mkdir    # importing 'mkdir' from 'os'
 
 
 ## clearing the shell output
 os.system("cls")
 
-debug = False
-reusedRequest = ""
-resusingRequset = False
+## setting some variables
+debug = False   # debug to False for normal opperation
+reusedRequest = ""  # reusedRequest to blank
+resusingRequset = False # reusingRequest to False
+numSpacesSixthRow = 0
+response = ""
 
+
+## defining debugMode, params:
+## paramToPrint, paramName
 def debugMode(paramToPrint, paramName):
-    global filePath
+    global filePath # defining teh filePath var as global
+    
     if debug == True:
-        result = f"[\"{paramName}\", \"{paramToPrint}\"]"
-        print(result)
-        debugLog = open(filePath, "a")
-        debugLog.write(result+"\n")
-        debugLog.close()
+        result = f"[\"{paramName}\", \"{paramToPrint}\"]"   # defining the print statment under the results var
+        print(result)   # printing the result
+        debugLog = open(filePath, "a")  # opening the debug log
+        debugLog.write(result+"\n") # writing to the debug log
+        debugLog.close()    # closing the debug log
 
 def debugRequest(request, yes):
-    global now
-    global requestPath
-    if yes == True and debug == True:
-        requestFileName = f"request_{now}.json"
-        requestFilePath = os.path.join(requestPath, requestFileName)
-        try: 
-            requestFile = open(requestFilePath, "a")
+    global now  # defining the now var as global
+    global requestPath  # defining the requestPath var as global
+
+    if yes == True and debug == True:   # will only execute if debug mode is on
+        requestFileName = f"request_{now}.json" # making the file path for the request
+        requestFilePath = os.path.join(requestPath, requestFileName)    # making the file path for the request
+        
+        try:    # try statement to allow for file not existing
+            requestFile = open(requestFilePath, "a")    #opening the request file
+        
             for item in request:
-                requestFile.write("%s" % request)
-            requestFile.close()
+                requestFile.write("%s" % request)   # writing the request to the request file
+            requestFile.close() # closing the request file
+        
         except:
             requestFile = open(requestFilePath, "x")
             requestFile.close()
 
 
-if len(sys.argv) == 2:
-    if sys.argv[1] == "--debug":
-        debug = True
+if len(sys.argv) == 2:                                                  # if the program is run with 2 arguments
+    if sys.argv[1] == "--debug":                                        # if the first argument is '--degbug'
+        debug = True                                                    # seting the 'debug' variable to True
+        print("*** DEBUG MODE ACTIVATED ***")                           # informing the user that debug mode is avtivated
+        now = datetime.datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")  # storing the current time 
+        fileName = "log_"+now+".txt"                                    # creating the file name/ path
+        filePath = os.path.join("debugLogs", fileName)                  # creating the file name/ path
+        requestPath = os.path.join("debugLogs", "requests")             # creating the file path for the request
+        try: debugLog = open(filePath, "x")                             # attmpting to create the debugLog file
+        except:                                                         # if above fails:
+            os.mkdir("debugLogs")                                           # creating the debug log directory
+            os.mkdir(requestPath)                                           # creating the requests directory
+            debugLog = open(filePath, "x")                                  # creating the debugLog file
+        debugLog = open(filePath, "a")                                  # opening the debug log gile
+        debugMode(now, "timeNow")                                       # writing the current time to the debugLog
+        debugLog.close()                                                # closing the debug log
+
+elif len(sys.argv) == 4:                                                # if the proggram is run with 4 arguments
+    if sys.argv[1] == "--debug":                                        #
+        debug = True                                                    # i'm not writing all the comments out again, look at the if statment directly above
         print("*** DEBUG MODE ACTIVATED ***")
         now = datetime.datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
         fileName = "log_"+now+".txt"
@@ -61,40 +89,22 @@ if len(sys.argv) == 2:
         debugMode(now, "timeNow")
         debugLog.close()
 
-elif len(sys.argv) == 4:
-    if sys.argv[1] == "--debug":
-        debug = True
-        print("*** DEBUG MODE ACTIVATED ***")
-        now = datetime.datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
-        fileName = "log_"+now+".txt"
-        filePath = os.path.join("debugLogs", fileName)
-        requestPath = os.path.join("debugLogs", "requests")
-        try: debugLog = open(filePath, "x")
-        except: 
-            os.mkdir("debugLogs")
-            os.mkdir(requestPath)
-            debugLog = open(filePath, "x")
-        debugLog = open(filePath, "a")
-        debugMode(now, "timeNow")
-        debugLog.close()
 
-
-    if sys.argv[2] == "--r" and sys.argv[1] == "--debug":
-        reuseRequest = True
-        reuseRequestPath = requestPath
-        reuseRequestName = sys.argv[3]
-        reuseRequestFile = os.path.join(reuseRequestPath, reuseRequestName)
-        reusedRequest = open(reuseRequestFile, "r")
-        reusedRequestData = reusedRequest.read()
-        reusedRequest.close()
+    if sys.argv[2] == "--r" and sys.argv[1] == "--debug":               # if the 2nd argument is '--r' and in debug mode
+        reuseRequest = True                                             # reusing the request set to True
+        reuseRequestPath = requestPath                                  # geting the path
+        reuseRequestName = sys.argv[3]                                  # getting the file name from the arguments
+        reuseRequestFile = os.path.join(reuseRequestPath, reuseRequestName) # joing all for correct path
+        reusedRequest = open(reuseRequestFile, "r")                     # opening
+        reusedRequestData = reusedRequest.read()                        # reading
+        reusedRequest.close()                                           # closing
         resusingRequset = True
 
-def lateTrainMessageBox():
+def lateTrainMessageBox():          # just allows you to call a windows message box if there is a late train
     path = os.path.join("windowsMessageBoxes", "lateTrain.vbs")
     os.system(path)
 
 
-numSpacesSixthRow = 0
 
 
 if resusingRequset == True:
@@ -168,14 +178,8 @@ def stationNameRetreiver():
     print(stationName)
     stationChosen = stationName
 
-## making the url for the api call
-#oldUrl = "https://transportapi.com/v3/uk/train/station/"+functions.station.lower()+"///timetable.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&train_status=passenger"
-#url1 = "https://transportapi.com/v3/uk/train/station/"+functions.station.lower()+"/live.json?app_id="+apiKeys.appID+"&app_key="+apiKeys.apiKey+"&darwin=false&train_status=passenger"
-
-
-
 ## defining response for for the request statment, otherwise errors
-response = ""
+
 
 debugMode(resusingRequset, "reusingRequest")
 
