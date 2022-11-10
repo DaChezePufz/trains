@@ -1,0 +1,1 @@
+x=msgbox ("There is a late train!",48, "Train Info")
