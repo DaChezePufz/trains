@@ -375,7 +375,6 @@ def displayBoardsDisplay():
 
         if int(platformWithoutPunc) >= 40:
             spaceIfPlat2Chars = ""
-        
         else:
             spaceIfPlat2Chars = " "
 
@@ -386,6 +385,9 @@ def displayBoardsDisplay():
         
         numSpacesSixthRow = 40 - (lengthDestination + 5 + 2)
         numSpacesSixthRowPrint = " " * int(numSpacesSixthRow)
+            
+            
+
 
         print(f"""
 ┌──────────────────────────────────────────┐

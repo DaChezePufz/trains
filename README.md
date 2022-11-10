@@ -5,7 +5,7 @@ a python program that uses the transport api to grab train times from a local st
 
 
 
-## Furture plans: DARWIN
+## Furture plans: DARWIN API
 planning to migrate over to the national rail api
 
 
