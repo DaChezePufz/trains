@@ -3,9 +3,10 @@ import afterDateNds
 import apiKeys
 import stations
 import grt
+import main
 
 station = ""
-
+stationChosen = ""
 
 def getAndDisplayTime():
     now = datetime.datetime.now()   
@@ -76,3 +77,11 @@ def stationNameFinder():
         if stationUpper == stationCode:
             print(f"The station is: {stationName}")
             stationChosen = stationName
+
+def stationNameRetreiver():
+    id1 = main.sortedRaw[1]
+    id1sort = sortObject(id1)
+    stationNameID = id1sort[3]
+    stationNameIDremd = desc, value = stationNameID.split('":"')
+    stationName = removePunc(value)
+    print(stationName)
