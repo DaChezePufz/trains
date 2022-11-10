@@ -148,3 +148,6 @@ python/stationsForm.csv
 python/stationsForm.csv
 *.csv
 /builds
+
+/python/debugLogs
+/python/newAPIworkings
